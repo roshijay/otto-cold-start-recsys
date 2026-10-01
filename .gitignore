@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# regenerable data: never commit raw downloads or derived files
+data/raw/
+*.duckdb
+*.parquet
+# exception: the small demo assets the Streamlit app loads at runtime
+!app/assets/*.parquet
+# dbt working folders
+.dbt/
+target/
+logs/
+dbt_packages/
+# macOS
+.DS_Store
