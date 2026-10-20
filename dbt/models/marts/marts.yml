@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: fct_session_summary
+    description: "One row per session, persisted. The stable contract analysts query."
+    columns:
+      - name: session_id
+        tests:
+          - not_null
+          - unique
+  - name: fct_item_stats
+    description: "One row per item: event counts and conversion rates. Feeds the popularity baseline in Phase 4."
+    columns:
+      - name: aid
+        tests:
+          - not_null
+          - unique
+  - name: fct_funnel
+    description: "Single-row funnel: sessions reaching clicks, carts, orders, plus transition rates."

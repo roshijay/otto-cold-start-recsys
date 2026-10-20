@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: events
+        description: "One row per session event, loaded from the OTTO sample parquet. See docs/data-dictionary.md."

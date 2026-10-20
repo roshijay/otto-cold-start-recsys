@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_events
+    description: "Cleaned one-row-per-event from raw.events."
+    columns:
+      - name: session_id
+        tests:
+          - not_null
+      - name: aid
+        tests:
+          - not_null
+      - name: event_ts
+        tests:
+          - not_null
+      - name: event_type
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['clicks', 'carts', 'orders']
