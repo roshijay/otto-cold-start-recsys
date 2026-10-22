@@ -37,5 +37,30 @@ SQL: dbt/analyses/q6_post_order_carting.sql
 - 70.0% of buyers (35,619 of 50,871) cart again after their first order, averaging 6.3 items; 51.9% order again later in their history.
 - Interpretation: saving-for-later is mainstream behavior, not an edge case — evidence for a persistent-cart feature. Post-order carts are high-value intent signals for the next purchase.
 
+## Q7 — Cart abandonment: the revenue left on the table
+SQL: dbt/analyses/q7_cart_abandonment.sql
+- 94,561 sessions reach cart; 44,452 (47.0%) never order within the observed window.
+- Abandoners cart 4.6 items on average (4.0 distinct) -- real consideration, not casual
+  single-item drops. Converted sessions cart deeper (10.9), though that includes post-order
+  carts (Q6), so the pre-order gap is narrower than it looks.
+- Abandoners' sessions run ~294 hours (~12 days) past the first cart: they don't bounce,
+  they deliberate without converting.
+- Interpretation: "abandonment" here is sustained non-converting engagement, not leaving
+  the site -- a re-engagement audience (cart reminders, "still interested?" nudges), not a
+  lost one. Cart depth tracks conversion (Q2's pattern again). Caveat: some may convert
+  after 2022-08-28 (unobserved).
+
+## Q8 — Repeat purchase by cohort: the leaky bucket, corrected
+SQL: dbt/analyses/q8_cohort_retention.sql (+ q8b_second_order_timing.sql diagnostic)
+- Cohort repeat rates (2+ order events): 67-75% for early-August cohorts, sliding to 49.7%
+  for Aug 22 -- partly right-censoring (later cohorts have less follow-up before Aug 28,
+  so read the shape, not just the levels).
+- Median days to second order: 0.0 in every cohort. Diagnostic: 59.3% of second orders land
+  within 1 hour of the first; only 34.6% land more than 1 day later.
+- Interpretation: most "second orders" are same-checkout multi-item baskets (OTTO logs each
+  purchased item as its own order event), not repurchases. The honest retention number:
+  ~23.9% of buyers (12,179/50,871) come back >=1 day later and buy again -- less than half
+  of Q6's 51.9% headline. The >1d slice is the true leaky-bucket metric to track.
+
 ## State of the business
 Out of 200,000 sessions, only 25% end in a purchase — and the biggest leak is at the top: 53% of visitors never add to cart. Demand is an extreme long tail with no hero items, and strikingly, the most-clicked products convert worst (1.6% vs 19% for a mid-click item): popularity seems to breed skepticism rather than trust, the TikTok Shop effect where 1,000+ reviews send shoppers hunting for the honest bad ones instead of buying. Meanwhile "sessions" turned out to be multi-day visitor histories (median 4.2 days from first click to order), and 70% of buyers cart again right after ordering — already saving for next time, manually. So I'd invest at the browse→cart transition with session-based recommendations (popularity-based would backfire, per the data), weight recent behavior within long histories, and build a real save-for-later surface for the second purchase journey that's already happening.
