@@ -231,3 +231,6 @@ dbt_packages/
 # macOS
 .DS_Store
 data/sample/*.jsonl
+*.model
+# gensim binaries: main .model file + .npy sidecars (reproducible, ~150MB, never commit)
+*.model.*
