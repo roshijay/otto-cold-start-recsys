@@ -223,6 +223,8 @@ data/raw/
 *.parquet
 # exception: the small demo assets the Streamlit app loads at runtime
 !app/assets/*.parquet
+!app/assets/*.csv
+!app/assets/*.json
 # dbt working folders
 .dbt/
 target/

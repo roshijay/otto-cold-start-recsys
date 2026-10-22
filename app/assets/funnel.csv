@@ -1,0 +1,2 @@
+n_sessions,n_with_click,n_with_cart,n_with_order,click_to_cart_rate,cart_to_order_rate,session_conversion_rate
+200000,200000.0,94561.0,50871.0,0.472805,0.5379701991307199,0.254355

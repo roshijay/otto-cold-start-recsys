@@ -1,0 +1,4 @@
+model,clicks_r20,clicks_mrr20,carts_r20,carts_mrr20,orders_r20,weighted_r20,weighted_mrr20
+popularity,0.0044,0.0008,0.0007,0.0001,0.0,0.0021,0.0004
+co-visitation,0.0647,0.0219,0.0235,0.0101,0.0006,0.0328,0.0113
+item2vec,0.0257,0.0079,0.0104,0.004,0.0006,0.0133,0.0041
