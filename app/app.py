@@ -31,8 +31,10 @@ def load_assets():
     stats = pd.read_parquet(ASSETS / "item_stats_top.parquet")
     vecs = pd.read_parquet(ASSETS / "item_vectors.parquet")
     vcols = [c for c in vecs.columns if c != "aid"]
-    M = vecs[vcols].to_numpy(dtype=np.float32)
-    M /= np.linalg.norm(M, axis=1, keepdims=True)  # unit rows: dot product = cosine
+    M = np.asarray(vecs[vcols].to_numpy(dtype=np.float64))
+    norms = np.linalg.norm(M, axis=1, keepdims=True)
+    norms[norms == 0] = 1.0  # safety: never divide by zero
+    M = M / norms  # unit rows: dot product = cosine (not in-place: avoids dtype-cast quirks)
     bakeoff = pd.read_csv(ASSETS / "bakeoff.csv")
     ope = json.loads((ASSETS / "ope_summary.json").read_text())
     playground = json.loads((ASSETS / "playground.json").read_text())
