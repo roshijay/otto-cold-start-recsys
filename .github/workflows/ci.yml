@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Install dependencies
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          uv venv
+          uv pip install --python .venv/bin/python duckdb pandas pyarrow dbt-duckdb
+
+      - name: Generate synthetic fixture
+        run: .venv/bin/python scripts/make_synthetic.py --sessions 2000 --out data/raw/synthetic_train.jsonl
+
+      - name: Configure dbt profile
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml << EOF
+          otto_recsys:
+            target: dev
+            outputs:
+              dev:
+                type: duckdb
+                path: ${{ github.workspace }}/data/warehouse.duckdb
+                schema: main
+          EOF
+
+      - name: Run pipeline on synthetic data
+        run: |
+          export OTTO_RAW=data/raw/synthetic_train.jsonl
+          .venv/bin/python src/recsys/make_sample.py
+          .venv/bin/python src/recsys/parse_events.py
+          .venv/bin/python src/recsys/load_duckdb.py
+          cd dbt && ../.venv/bin/dbt build
