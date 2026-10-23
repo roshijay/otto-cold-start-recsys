@@ -26,7 +26,9 @@ jobs:
           uv pip install --python .venv/bin/python duckdb pandas pyarrow dbt-duckdb
 
       - name: Generate synthetic fixture
-        run: .venv/bin/python scripts/make_synthetic.py --sessions 2000 --out data/raw/synthetic_train.jsonl
+        run: |
+          mkdir -p data/raw data/sample
+          .venv/bin/python scripts/make_synthetic.py --sessions 2000 --out data/raw/synthetic_train.jsonl
 
       - name: Configure dbt profile
         run: |

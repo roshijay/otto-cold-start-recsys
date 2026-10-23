@@ -1,5 +1,5 @@
 """Generate a tiny synthetic OTTO-like JSONL for CI smoke tests."""
-import argparse, json, random
+import argparse, json, os, random
 
 def main():
     ap = argparse.ArgumentParser()
@@ -10,6 +10,7 @@ def main():
     rng = random.Random(args.seed)
     n_items, popular = 500, list(range(20))
     base_ts = 1659304800  # seconds; parse_events.py auto-detects ms vs s
+    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     with open(args.out, "w") as f:
         for s in range(args.sessions):
             n_events = rng.randint(1, 12)
