@@ -53,7 +53,7 @@ Makefile              one-command pipeline runner (make all)
 (Full per-event-type table in `docs/model-bakeoff.md`.)
 
 - **The upset: co-visitation beats item2vec.** Diagnosis, not hand-waving: OTTO "sessions" are multi-day visitor histories (median 4.2 days first-click → order), which breaks skip-gram's short-window assumption; hyperparameters were also untuned. Orders are ~unpredictable for all three models — a task-framing result, not a tuning failure.
-- **OPE (attempt 2):** IPS lift **+3.04e-04** per impression, 95% CI [2.13e-04, 4.03e-04]; doubly robust +3.05e-04 with a nearly identical CI — both estimators agree, CI entirely above zero. Expected reward ~11x the popularity policy's. Max importance weight 2.0 (bounded by the mixture design).
+- **OPE (attempt 2):** IPS lift **+3.14e-04** per impression, 95% CI [2.23e-04, 4.14e-04]; doubly robust +3.14e-04 with a nearly identical CI — both estimators agree, CI entirely above zero. Expected reward ~11x the popularity policy's. Max importance weight 2.0 (bounded by the mixture design).
 - **Analytics that shaped the models:** the top item by orders is 0.15% of all orders (extreme long tail — popularity is hopeless); conversion rises monotonically with session length; 47% cart abandonment with abandoners deliberating ~12 days (re-engagement audience); true next-day repurchase is only ~24% of buyers — 59% of "second orders" are same-checkout multi-item baskets, correcting the naive 52%. Details in `docs/analytics-findings.md`.
 - **Recommendation: SHIP** — promote co-visitation to a live experiment. Design doc with power analysis: `docs/experiment-design.md`.
 

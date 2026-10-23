@@ -30,8 +30,8 @@ unknowable. We simulate logging policies over our 40,000 test sessions instead. 
 | max importance weight                   | 9,255                           | 2.0 (bounded by design)     |
 | V(popularity): IPS / DR                 | 5.0e-06 / 5.2e-06               | 3.04e-05 / 3.00e-05         |
 | V(candidate): IPS / DR                  | ~0 / 6.1e-06                    | 3.35e-04 / 3.35e-04         |
-| lift, IPS (95% CI)                      | -5.0e-06 ([-1.3e-05, 0])        | +3.04e-04 ([+2.1e-04, +4.0e-04]) |
-| lift, DR (95% CI)                       | +0.9e-06 ([-6.6e-06, +6.4e-06]) | +3.05e-04 ([+2.1e-04, +4.0e-04]) |
+| lift, IPS (95% CI)                      | -5.0e-06 ([-1.3e-05, 0])        | +3.14e-04 ([+2.1e-04, +4.0e-04]) |
+| lift, DR (95% CI)                       | +0.9e-06 ([-6.6e-06, +6.4e-06]) | +3.14e-04 ([+2.1e-04, +4.0e-04]) |
 
 ## Attempt 1: a case study in why OPE needs overlap
 A popularity-concentrated logger and long-tail truth almost never coincide (2 matches in

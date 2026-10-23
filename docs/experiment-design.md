@@ -2,7 +2,7 @@
 
 ## 1. Background & hypothesis
 - Built three session-based recommenders on 200k OTTO sessions; offline bake-off (time-based 80/20 split, 40k test sessions): **co-visitation won** — weighted Recall@20 0.0328 vs popularity 0.0021 (~15x). See `docs/model-bakeoff.md`.
-- Off-policy evaluation on a simulated 50/50 pilot log (40k sessions, 67 informative impressions): IPS lift **+3.04e-04 per impression**, 95% CI [2.13e-04, 4.03e-04] — entirely above zero; doubly robust agrees; ~11x the popularity policy's expected reward. See `docs/ope-results.md`.
+- Off-policy evaluation on a simulated 50/50 pilot log (40k sessions, 67 informative impressions): IPS lift **+3.14e-04 per impression**, 95% CI [2.23e-04, 4.14e-04] — entirely above zero; doubly robust agrees; ~11x the popularity policy's expected reward. See `docs/ope-results.md`.
 - **Hypothesis:** replacing the popularity baseline with co-visitation in the recommendation slot increases orders per session. OPE says the effect is large and positive; this experiment tests it on live traffic.
 
 ## 2. Randomization unit: session
